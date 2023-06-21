@@ -1,0 +1,29 @@
+{
+  "name": "yelpcamp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js",
+    "linter": "eslint src/*.js --color",
+    "depcheck": "npx depcheck",
+    "depupdate": "npx npm-check-updates"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "ejs": "^3.1.5",
+    "express": "^4.17.1",
+    "method-override": "^3.0.0",
+    "mongoose": "^5.10.4"
+  },
+  "devDependencies": {
+    "depcheck": "^1.4.3",
+    "nodemon": "^2.0.22",
+    "npm-check-updates": "^16.10.12"
+  }
+}
