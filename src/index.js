@@ -1,5 +1,6 @@
 import dotenv from 'dotenv';
 import express from 'express';
+import ejsMate from 'ejs-mate';
 import connectDB from './configs/database.js';
 import Campground from './models/campground.js';
 import methodOverride from 'method-override';
@@ -9,10 +10,10 @@ await connectDB();
 
 const app = express();
 
+app.engine('ejs', ejsMate);
 app.set('view engine', 'ejs');
 app.set('views', 'src/views');
 
-app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
 
 app.get('/', async (req, res) => {
@@ -24,14 +25,14 @@ app.get('/campgrounds', async (req, res) => {
   res.render('campgrounds/index', { campgrounds });
 });
 
-app.get('/campgrounds/new', async (req, res) => {
-  res.render('campgrounds/new');
-});
-
 app.post('/campgrounds', async (req, res) => {
   const campground = new Campground(req.body.campground);
   await campground.save();
   res.redirect(`/campgrounds/${campground._id}`);
+});
+
+app.get('/campgrounds/new', async (req, res) => {
+  res.render('campgrounds/new');
 });
 
 app.get('/campgrounds/:id', async (req, res) => {
