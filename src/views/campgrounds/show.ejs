@@ -1,6 +1,6 @@
 <% layout('layouts/boilerplate.ejs') %>
 <div class="row">
-  <div class="col-6 offset-3">
+  <div class="col-6">
     <div class="card mb-3">
       <img src="<%= campground.image %>" class="card-img-top" />
 
@@ -30,5 +30,56 @@
         </form>
       </div>
     </div>
+  </div>
+
+  <div class="col-6">
+    <h2>Add Review</h2>
+    <form
+      action="/campgrounds/<%= campground._id %>/reviews"
+      method="POST"
+      class="mb-3 validated-form"
+      novalidate
+    >
+      <div class="mb-3">
+        <label class="form-label" for="rating">Rating</label>
+        <input
+          class="form-range"
+          type="range"
+          min="1"
+          max="5"
+          id="rating"
+          name="review[rating]"
+          required
+        />
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label" for="body">Review</label>
+        <textarea
+          class="form-control"
+          name="review[body]"
+          id="body"
+          required
+        ></textarea>
+      </div>
+
+      <button class="btn btn-success">Submit</button>
+    </form>
+
+    <h2>Reviews</h2>
+    <% for(let review of campground.reviews) { %>
+    <div class="card mb-3">
+      <div class="card-body">
+        <h5 class="card-title"><%= review.rating %></h5>
+        <p class="card-text"><%= review.body %></p>
+        <form
+          action="/campgrounds/<%= campground._id %>/reviews/<%= review._id %>?method=DELETE"
+          method="POST"
+        >
+          <button class="btn btn-sm btn-danger">Delete</button>
+        </form>
+      </div>
+    </div>
+    <% } %>
   </div>
 </div>
