@@ -3,21 +3,22 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CampExplorer</title>
+
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
       integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I"
       crossorigin="anonymous"
     />
-    <title>Boilerplate</title>
   </head>
 
   <body class="d-flex flex-column vh-100">
-    <%- include('../partials/navbar.ejs') %>
+    <%- include('../partials/navbar')%>
 
     <main class="container mt-5"><%- body %></main>
 
-    <%- include('../partials/footer.ejs') %>
+    <%- include('../partials/footer')%>
 
     <script
       src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
@@ -30,5 +31,7 @@
       integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/"
       crossorigin="anonymous"
     ></script>
+
+    <script src="../../utils/validateForms.js"></script>
   </body>
 </html>
