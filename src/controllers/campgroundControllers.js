@@ -1,15 +1,15 @@
 import Campground from '../models/campgroundModel.js';
 
-const getAllCampgrounds = async (req, res) => {
+const getAllCampgroundsPage = async (req, res) => {
   const campgrounds = await Campground.find({});
   res.render('campgrounds/index', { campgrounds });
 };
 
-const createCampground = async (req, res) => {
+const getNewCampgroundPage = async (req, res) => {
   res.render('campgrounds/new');
 };
 
-const showCampground = async (req, res) => {
+const getCampgroundPage = async (req, res) => {
   const campground = await Campground.findById(req.params.id).populate(
     'reviews'
   );
@@ -17,7 +17,7 @@ const showCampground = async (req, res) => {
   res.render('campgrounds/show', { campground });
 };
 
-const editCampground = async (req, res) => {
+const getEditCampgroundPage = async (req, res) => {
   const campground = await Campground.findById(req.params.id);
   console.log(JSON.stringify(campground));
   res.render('campgrounds/edit', { campground });
@@ -47,6 +47,7 @@ const saveEditedCampground = async (req, res) => {
 };
 
 const deleteCampground = async (req, res) => {
+  // Fix the deletion of reviews
   await Campground.findByIdAndDelete(req.params.id);
 
   req.flash('msg', {
@@ -57,10 +58,10 @@ const deleteCampground = async (req, res) => {
 };
 
 export {
-  getAllCampgrounds,
-  createCampground,
-  showCampground,
-  editCampground,
+  getAllCampgroundsPage,
+  getNewCampgroundPage,
+  getCampgroundPage,
+  getEditCampgroundPage,
   saveCampground,
   saveEditedCampground,
   deleteCampground,
