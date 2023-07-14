@@ -1,28 +1,18 @@
 import mongoose from 'mongoose';
-import Review from './reviewModel.js';
 
 const CampgroundSchema = new mongoose.Schema({
-  title: String,
-  image: String,
-  price: Number,
-  description: String,
-  location: String,
+  location: { type: String, required: true },
+  title: { type: String, required: true },
+  price: { type: Number, required: true },
+  image: { type: String, required: true },
+  description: { type: String, required: true },
+
   reviews: [
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Review',
     },
   ],
-});
-
-CampgroundSchema.post('findOneAndDelete', async function (doc) {
-  if (doc) {
-    await Review.deleteMany({
-      _id: {
-        $in: doc.reviews,
-      },
-    });
-  }
 });
 
 const Campground = mongoose.model('Campground', CampgroundSchema);
