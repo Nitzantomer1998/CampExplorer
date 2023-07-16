@@ -1,11 +1,12 @@
 import express from 'express';
 import wrapAsync from '../utils/wrapAsync.js';
+import isLoggedIn from '../middlewares/AuthorizationMiddleware.js';
 import { validateCampground } from '../utils/validations.js';
 import {
-  getAllCampgrounds,
-  createCampground,
-  showCampground,
-  editCampground,
+  getAllCampgroundsPage,
+  getNewCampgroundPage,
+  getCampgroundPage,
+  getEditCampgroundPage,
   saveCampground,
   saveEditedCampground,
   deleteCampground,
@@ -13,19 +14,29 @@ import {
 
 const router = express.Router();
 
-router.get('/campgrounds', wrapAsync(getAllCampgrounds));
-router.get('/campgrounds/new', wrapAsync(createCampground));
-router.get('/campgrounds/:id', wrapAsync(showCampground));
-router.get('/campgrounds/:id/edit', wrapAsync(editCampground));
+router.get('/campgrounds', isLoggedIn, wrapAsync(getAllCampgroundsPage));
+router.get('/campgrounds/new', isLoggedIn, wrapAsync(getNewCampgroundPage));
+router.get('/campgrounds/:id', isLoggedIn, wrapAsync(getCampgroundPage));
+router.get(
+  '/campgrounds/:id/edit',
+  isLoggedIn,
+  wrapAsync(getEditCampgroundPage)
+);
 
-router.post('/campgrounds', validateCampground, wrapAsync(saveCampground));
+router.post(
+  '/campgrounds',
+  isLoggedIn,
+  validateCampground,
+  wrapAsync(saveCampground)
+);
 
 router.put(
   '/campgrounds/:id',
+  isLoggedIn,
   validateCampground,
   wrapAsync(saveEditedCampground)
 );
 
-router.delete('/campgrounds/:id', wrapAsync(deleteCampground));
+router.delete('/campgrounds/:id', isLoggedIn, wrapAsync(deleteCampground));
 
 export default router;
