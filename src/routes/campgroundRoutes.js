@@ -1,7 +1,10 @@
 import express from 'express';
 import wrapAsync from '../utils/wrapAsync.js';
-import isLoggedIn from '../middlewares/AuthorizationMiddleware.js';
 import { validateCampground } from '../utils/validations.js';
+import {
+  isLoggedIn,
+  isCampgroundAuthor,
+} from '../middlewares/AuthorizationMiddleware.js';
 import {
   getAllCampgroundsPage,
   getNewCampgroundPage,
@@ -20,6 +23,7 @@ router.get('/campgrounds/:id', isLoggedIn, wrapAsync(getCampgroundPage));
 router.get(
   '/campgrounds/:id/edit',
   isLoggedIn,
+  isCampgroundAuthor,
   wrapAsync(getEditCampgroundPage)
 );
 
@@ -33,10 +37,16 @@ router.post(
 router.put(
   '/campgrounds/:id',
   isLoggedIn,
+  isCampgroundAuthor,
   validateCampground,
   wrapAsync(saveEditedCampground)
 );
 
-router.delete('/campgrounds/:id', isLoggedIn, wrapAsync(deleteCampground));
+router.delete(
+  '/campgrounds/:id',
+  isLoggedIn,
+  isCampgroundAuthor,
+  wrapAsync(deleteCampground)
+);
 
 export default router;
