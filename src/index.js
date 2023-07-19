@@ -33,6 +33,7 @@ app.use(
 );
 app.use(flash());
 app.use((req, res, next) => {
+  res.locals.currentUser = req.session.user_id;
   res.locals.msg = req.flash('msg')[0];
   next();
 });
