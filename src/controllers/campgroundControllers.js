@@ -1,3 +1,4 @@
+import Review from '../models/reviewModel.js';
 import Campground from '../models/campgroundModel.js';
 
 const getAllCampgroundsPage = async (req, res) => {
@@ -10,9 +11,9 @@ const getNewCampgroundPage = async (req, res) => {
 };
 
 const getCampgroundPage = async (req, res) => {
-  const campground = await Campground.findById(req.params.id).populate(
-    'reviews'
-  );
+  const campground = await Campground.findById(req.params.id)
+    .populate('author')
+    .populate({ path: 'reviews', populate: { path: 'author' } });
 
   res.render('campgrounds/show', { campground });
 };
@@ -25,6 +26,7 @@ const getEditCampgroundPage = async (req, res) => {
 
 const saveCampground = async (req, res) => {
   const campground = new Campground(req.body.campground);
+  campground.author = req.session.user_id;
   await campground.save();
 
   req.flash('msg', {
@@ -47,7 +49,8 @@ const saveEditedCampground = async (req, res) => {
 };
 
 const deleteCampground = async (req, res) => {
-  // Fix the deletion of reviews
+  const campground = await Campground.findById(req.params.id);
+  await Review.deleteMany({ _id: { $in: campground.reviews } });
   await Campground.findByIdAndDelete(req.params.id);
 
   req.flash('msg', {
