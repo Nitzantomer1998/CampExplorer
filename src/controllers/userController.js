@@ -9,6 +9,13 @@ const getLoginPage = async (req, res) => {
   res.render('users/login');
 };
 
+const logoutUser = async (req, res) => {
+  req.session.user_id = null;
+  req.flash('msg', { type: 'success', message: 'Goodbye!' });
+
+  res.redirect('/login');
+};
+
 const registerUser = async (req, res) => {
   if (await User.findOne({ username: req.body.user.username })) {
     req.flash('msg', { type: 'info', message: 'Username already taken' });
@@ -51,4 +58,10 @@ const loginUser = async (req, res) => {
   res.redirect('/campgrounds');
 };
 
-export { getRegisterationPage, getLoginPage, registerUser, loginUser };
+export {
+  getRegisterationPage,
+  getLoginPage,
+  logoutUser,
+  registerUser,
+  loginUser,
+};
