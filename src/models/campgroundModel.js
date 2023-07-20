@@ -12,7 +12,6 @@ const CampgroundSchema = new mongoose.Schema({
     {
       url: String,
       filename: String,
-      required: true,
     },
   ],
   description: { type: String, required: true },
