@@ -1,5 +1,7 @@
 import express from 'express';
+import multer from 'multer';
 import wrapAsync from '../utils/wrapAsync.js';
+import cloudinaryStorage from '../configs/cloudinaryConfig.js';
 import { validateCampground } from '../utils/validations.js';
 import {
   isLoggedIn,
@@ -10,10 +12,12 @@ import {
   getNewCampgroundPage,
   getCampgroundPage,
   getEditCampgroundPage,
-  saveCampground,
-  saveEditedCampground,
+  postCampground,
+  postUpdatedCampground,
   deleteCampground,
 } from '../controllers/campgroundControllers.js';
+
+const uploadImages = multer({ storage: cloudinaryStorage }).array('images', 5);
 
 const router = express.Router();
 
@@ -30,16 +34,18 @@ router.get(
 router.post(
   '/campgrounds',
   isLoggedIn,
+  uploadImages,
   validateCampground,
-  wrapAsync(saveCampground)
+  wrapAsync(postCampground)
 );
 
 router.put(
   '/campgrounds/:id',
   isLoggedIn,
   isCampgroundAuthor,
+  uploadImages,
   validateCampground,
-  wrapAsync(saveEditedCampground)
+  wrapAsync(postUpdatedCampground)
 );
 
 router.delete(
