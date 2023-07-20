@@ -3,10 +3,9 @@ import wrapAsync from '../utils/wrapAsync.js';
 import { validateReview } from '../utils/validations.js';
 import {
   isLoggedIn,
-  isCampgroundAuthor,
   isReviewAuthor,
 } from '../middlewares/AuthorizationMiddleware.js';
-import { createReview, deleteReview } from '../controllers/reviewController.js';
+import { postReview, deleteReview } from '../controllers/reviewController.js';
 
 const router = express.Router();
 
@@ -14,7 +13,7 @@ router.post(
   '/campgrounds/:id/reviews',
   isLoggedIn,
   validateReview,
-  wrapAsync(createReview)
+  wrapAsync(postReview)
 );
 
 router.delete(
