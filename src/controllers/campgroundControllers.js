@@ -47,10 +47,10 @@ const postUpdatedCampground = async (req, res) => {
     ...req.body.campground,
   });
 
-  if (
-    req.files.length + campground.images.length + req.body.deleteImages.length >
-    5
-  ) {
+  const deleteImages = req.body.deleteImages ? req.body.deleteImages.length : 0;
+  let imagesLength = req.files.length + campground.images.length + deleteImages;
+
+  if (imagesLength > 5) {
     req.flash('msg', {
       type: 'info',
       message: 'Post contain max of 5 images',
