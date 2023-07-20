@@ -5,8 +5,8 @@ const reviewSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
   },
-  rating: Number,
-  body: String,
+  rating: { type: Number, required: true },
+  body: { type: String, required: true },
 });
 
 const Review = mongoose.model('Review', reviewSchema);
