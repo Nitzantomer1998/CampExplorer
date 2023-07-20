@@ -34,10 +34,13 @@
       crossorigin="anonymous"
     ></script>
 
+    <script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.min.js"></script>
+
     <script>
       (function () {
         'use strict';
 
+        bsCustomFileInput.init();
         // Fetch all the forms we want to apply custom Bootstrap validation styles to
         const forms = document.querySelectorAll('.validated-form');
 
