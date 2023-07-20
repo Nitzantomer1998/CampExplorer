@@ -4,18 +4,18 @@ import { validateUser } from '../utils/validations.js';
 import {
   getRegisterationPage,
   getLoginPage,
-  logoutUser,
-  registerUser,
-  loginUser,
+  getLogoutUser,
+  postRegisterUser,
+  postLoginUser,
 } from '../controllers/userController.js';
 
 const router = express.Router();
 
 router.get('/register', wrapAsync(getRegisterationPage));
 router.get('/login', wrapAsync(getLoginPage));
-router.get('/logout', wrapAsync(logoutUser));
+router.get('/logout', wrapAsync(getLogoutUser));
 
-router.post('/register', validateUser, wrapAsync(registerUser));
-router.post('/login', wrapAsync(loginUser));
+router.post('/register', validateUser, wrapAsync(postRegisterUser));
+router.post('/login', wrapAsync(postLoginUser));
 
 export default router;
