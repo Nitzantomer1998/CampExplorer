@@ -8,7 +8,13 @@ const CampgroundSchema = new mongoose.Schema({
   location: { type: String, required: true },
   title: { type: String, required: true },
   price: { type: Number, required: true },
-  image: { type: String, required: true },
+  images: [
+    {
+      url: String,
+      filename: String,
+      required: true,
+    },
+  ],
   description: { type: String, required: true },
 
   reviews: [
