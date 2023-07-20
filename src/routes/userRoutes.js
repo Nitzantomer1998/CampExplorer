@@ -5,8 +5,8 @@ import {
   getRegisterationPage,
   getLoginPage,
   getLogoutUser,
-  postRegisterUser,
-  postLoginUser,
+  registerUser,
+  loginUser,
 } from '../controllers/userController.js';
 
 const router = express.Router();
@@ -15,7 +15,7 @@ router.get('/register', wrapAsync(getRegisterationPage));
 router.get('/login', wrapAsync(getLoginPage));
 router.get('/logout', wrapAsync(getLogoutUser));
 
-router.post('/register', validateUser, wrapAsync(postRegisterUser));
-router.post('/login', wrapAsync(postLoginUser));
+router.post('/register', validateUser, wrapAsync(registerUser));
+router.post('/login', wrapAsync(loginUser));
 
 export default router;
