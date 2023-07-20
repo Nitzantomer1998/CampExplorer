@@ -20,37 +20,80 @@ const getCampgroundPage = async (req, res) => {
 
 const getEditCampgroundPage = async (req, res) => {
   const campground = await Campground.findById(req.params.id);
-  console.log(JSON.stringify(campground));
+
   res.render('campgrounds/edit', { campground });
 };
 
-const saveCampground = async (req, res) => {
-  const campground = new Campground(req.body.campground);
-  campground.author = req.session.user_id;
-  await campground.save();
+const postCampground = async (req, res) => {
+  const campground = await new Campground({
+    ...req.body.campground,
+    author: req.session.user_id,
+    images: req.files.map((file) => ({
+      url: file.path,
+      filename: file.filename,
+    })),
+  }).save();
 
   req.flash('msg', {
     type: 'success',
     message: 'Successfully made a new campground!',
   });
+
   res.redirect(`/campgrounds/${campground._id}`);
 };
 
-const saveEditedCampground = async (req, res) => {
+const postUpdatedCampground = async (req, res) => {
   const campground = await Campground.findByIdAndUpdate(req.params.id, {
     ...req.body.campground,
   });
+
+  if (
+    req.files.length + campground.images.length + req.body.deleteImages.length >
+    5
+  ) {
+    req.flash('msg', {
+      type: 'info',
+      message: 'Post contain max of 5 images',
+    });
+
+    return res.redirect(`/campgrounds/${campground._id}`);
+  }
+
+  const images = req.files.map((file) => ({
+    url: file.path,
+    filename: file.filename,
+  }));
+
+  campground.images.push(...images);
+  await campground.save();
+
+  if (req.body.deleteImages) {
+    for (let filename of req.body.deleteImages) {
+      await cloudinary.uploader.destroy(filename);
+    }
+
+    await campground.updateOne({
+      $pull: { images: { filename: { $in: req.body.deleteImages } } },
+    });
+  }
 
   req.flash('msg', {
     type: 'success',
     message: 'Successfully updated a campground!',
   });
+
   res.redirect(`/campgrounds/${campground._id}`);
 };
 
 const deleteCampground = async (req, res) => {
   const campground = await Campground.findById(req.params.id);
+
   await Review.deleteMany({ _id: { $in: campground.reviews } });
+
+  for (let image of campground.images) {
+    await cloudinary.uploader.destroy(image.filename);
+  }
+
   await Campground.findByIdAndDelete(req.params.id);
 
   req.flash('msg', {
@@ -65,7 +108,7 @@ export {
   getNewCampgroundPage,
   getCampgroundPage,
   getEditCampgroundPage,
-  saveCampground,
-  saveEditedCampground,
+  postCampground,
+  postUpdatedCampground,
   deleteCampground,
 };
