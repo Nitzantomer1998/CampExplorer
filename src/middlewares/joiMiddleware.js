@@ -5,11 +5,20 @@ const joiCampgroundMiddleware = joi.object({
     .object({
       location: joi.string().required(),
       title: joi.string().required(),
-      image: joi.string().required(),
+      images: joi
+        .array()
+        .items(
+          joi.object({
+            url: joi.string().required(),
+            filename: joi.string().required(),
+          })
+        )
+        .required(),
       description: joi.string().required(),
       price: joi.number().required().min(0),
     })
     .required(),
+  deleteImages: joi.array(),
 });
 
 const joiReviewMiddleware = joi.object({
