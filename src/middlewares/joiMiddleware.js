@@ -5,15 +5,12 @@ const joiCampgroundMiddleware = joi.object({
     .object({
       location: joi.string().required(),
       title: joi.string().required(),
-      images: joi
-        .array()
-        .items(
-          joi.object({
-            url: joi.string().required(),
-            filename: joi.string().required(),
-          })
-        )
-        .required(),
+      images: joi.array().items(
+        joi.object({
+          url: joi.string().required(),
+          filename: joi.string().required(),
+        })
+      ),
       description: joi.string().required(),
       price: joi.number().required().min(0),
     })
