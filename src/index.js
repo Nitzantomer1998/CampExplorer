@@ -5,12 +5,11 @@ import ejsMate from 'ejs-mate';
 import flash from 'connect-flash';
 import session from 'express-session';
 import methodOverride from 'method-override';
-import wrapAsync from './utils/wrapAsync.js';
-import connectDB from './configs/database.js';
+import mongodbConfig from './configs/mongodbConfig.js';
 
 dotenv.config();
 
-await connectDB();
+await mongodbConfig();
 
 const app = express();
 
@@ -38,14 +37,12 @@ app.use((req, res, next) => {
   next();
 });
 
-fs.readdirSync('./src/routes').forEach(
-  wrapAsync(async (route) =>
-    app.use('/', (await import(`./routes/${route}`)).default)
-  )
+fs.readdirSync('./src/routes').forEach(async (route) =>
+  app.use('/', (await import(`./routes/${route}`)).default)
 );
 
-app.use((err, req, res, next) => {
-  const error = { statusCode: 404, message: 'Page Not Found' };
+app.use((error, req, res, next) => {
+  const { statusCode = 404, message = 'Page Not Found' } = error;
   res.render('error', { error });
 });
 
