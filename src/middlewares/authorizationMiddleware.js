@@ -7,7 +7,7 @@ const isLoggedIn = (req, res, next) => {
 
   req.flash('msg', {
     type: 'info',
-    message: 'Unauthorized Access, Please login first',
+    message: 'Unauthorized access, Please login first',
   });
 
   res.redirect('/login');
@@ -15,13 +15,14 @@ const isLoggedIn = (req, res, next) => {
 
 const isCampgroundAuthor = async (req, res, next) => {
   const campground = await Campground.findById(req.params.id);
+
   if (campground.author._id.toString() === req.session.user_id) {
     return next();
   }
 
   req.flash('msg', {
     type: 'info',
-    message: 'Unauthorized Access, You are not the author of this campground',
+    message: 'Unauthorized access, You are not the author of this campground',
   });
 
   res.redirect(`/campgrounds/${campground._id}`);
@@ -29,6 +30,7 @@ const isCampgroundAuthor = async (req, res, next) => {
 
 const isReviewAuthor = async (req, res, next) => {
   const campground = await Campground.findById(req.params.id);
+
   if (campground.author._id.toString() === req.session.user_id) {
     return next();
   }
@@ -43,7 +45,7 @@ const isReviewAuthor = async (req, res, next) => {
 
   req.flash('msg', {
     type: 'info',
-    message: 'Unauthorized Access, You are not the author of this review',
+    message: 'Unauthorized access, You are not the author of this review',
   });
 
   res.redirect(`/campgrounds/${campground._id}`);
