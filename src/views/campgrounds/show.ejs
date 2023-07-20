@@ -1,9 +1,38 @@
 <% layout('layouts/boilerplate.ejs') %>
+
 <div class="row">
   <div class="col-6">
-    <div class="card mb-3">
-      <img src="<%= campground.image %>" class="card-img-top" />
+    <div id="campgroundCarousel" class="carousel slide" data-ride="carousel">
+      <div class="carousel-inner">
+        <% campground.images.forEach((image, index) => { %>
+        <div class="carousel-item <%= index === 0 ? 'active' : ''%>">
+          <img src="<%= image.url%>" class="d-block w-100" />
+        </div>
+        <% }) %>
+      </div>
+      <% if(campground.images.length > 1) {%>
+      <a
+        class="carousel-control-prev"
+        href="#campgroundCarousel"
+        role="button"
+        data-slide="prev"
+      >
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a
+        class="carousel-control-next"
+        href="#campgroundCarousel"
+        role="button"
+        data-slide="next"
+      >
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>
+      <% } %>
+    </div>
 
+    <div class="card mb-3">
       <div class="card-body">
         <h5 class="card-title"><%= campground.title %></h5>
         <p class="card-text"><%= campground.description %></p>
@@ -38,7 +67,7 @@
   </div>
 
   <div class="col-6">
-    <h2>Add Review</h2>
+    <h2>Leave a Review</h2>
     <form
       action="/campgrounds/<%= campground._id %>/reviews"
       method="POST"
@@ -75,9 +104,15 @@
     <% for(let review of campground.reviews) { %>
     <div class="card mb-3">
       <div class="card-body">
-        <h6 class="card-subtitle mb-2 text-muted">By: 
-          <%= review.author.username %>
-        <h5 class="card-title">Rating: <%= review.rating %></h5>
+        <h5 class="card-title">By: <%= review.author.username %></h5>
+        <p class="card-subtitle mb-2">
+          Rated: <% for (let i = 1; i <= 5; i++) { %> <% if (i <= review.rating)
+          { %> &#9733;
+          <!-- Filled star -->
+          <% } else { %> &#9734;
+          <!-- Unfilled star -->
+          <% } %> <% } %>
+        </p>
         <p class="card-text"><%= review.body %></p>
         <% if (review.author._id.toString() === currentUser ||
         campground.author._id.toString() === currentUser) { %>
