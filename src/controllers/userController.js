@@ -9,8 +9,9 @@ const getLoginPage = async (req, res) => {
   res.render('users/login');
 };
 
-const logoutUser = async (req, res) => {
+const getLogoutUser = async (req, res) => {
   req.session.user_id = null;
+
   req.flash('msg', { type: 'success', message: 'Goodbye!' });
 
   res.redirect('/login');
@@ -27,13 +28,13 @@ const registerUser = async (req, res) => {
     return res.redirect('/register');
   }
 
-  const user = await User.create({
+  const newUser = await User.create({
     username: req.body.user.username,
     email: req.body.user.email,
     password: await bcrypt.hash(req.body.user.password, 12),
   });
 
-  req.session.user_id = user._id;
+  req.session.user_id = newUser._id;
   req.flash('msg', { type: 'success', message: 'Welcome to CampExplorer!' });
 
   res.redirect('/campgrounds');
@@ -61,7 +62,7 @@ const loginUser = async (req, res) => {
 export {
   getRegisterationPage,
   getLoginPage,
-  logoutUser,
+  getLogoutUser,
   registerUser,
   loginUser,
 };
