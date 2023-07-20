@@ -1,4 +1,5 @@
 <% layout('layouts/boilerplate.ejs') %>
+
 <div class="row">
   <h1 class="text-center">Edit Campground</h1>
 
@@ -7,6 +8,7 @@
       action="/campgrounds/<%= campground._id %>?_method=PUT"
       method="POST"
       novalidate
+      enctype="multipart/form-data"
       class="validated-form"
     >
       <div class="mb-3">
@@ -34,15 +36,21 @@
       </div>
 
       <div class="mb-3">
-        <label class="form-label" for="image">Image URL</label>
-        <input
-          class="form-control"
-          type="text"
-          name="campground[image]"
-          id="image"
-          value="<%= campground.image %>"
-          required
-        />
+        <label class="form-label" for="images">Upload More Images</label>
+        <div class="form-file custom-file">
+          <label class="form-file-label" for="images">
+            <span class="form-file-text custom-file-label">Choose images</span>
+            <span class="form-file-button">Browse</span>
+          </label>
+          <input
+            type="file"
+            class="form-file-input"
+            id="images"
+            name="images"
+            multiple
+            required
+          />
+        </div>
       </div>
 
       <div class="mb-3">
@@ -72,8 +80,23 @@
           id="description"
           required
         >
-<%= campground.description %></textarea
+        <%= campground.description %></textarea
         >
+      </div>
+
+      <div class="mb-3">
+        <% campground.images.forEach((image, index) => { %>
+        <img src="<%= image.url %>" class="img-thumbnail" />
+        <div class="from-check-inline">
+          <input
+            type="checkbox"
+            id="image-<%= index %>"
+            name="deleteImages[]"
+            value="<%= image.filename %>"
+          />
+        </div>
+        <label for="image-<%= index %>"></label>
+        <% }) %>
       </div>
 
       <div class="mb-3">
