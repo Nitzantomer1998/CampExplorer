@@ -1,5 +1,4 @@
 import ExpressError from '../utils/ExpressError.js';
-
 import {
   joiCampgroundMiddleware,
   joiReviewMiddleware,
