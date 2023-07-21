@@ -1,21 +1,31 @@
 import mongoose from 'mongoose';
 
 const CampgroundSchema = new mongoose.Schema({
+  title: { type: String, required: true },
+  location: { type: String, required: true },
+  price: { type: Number, required: true },
+  description: { type: String, required: true },
+
   author: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
   },
-  location: { type: String, required: true },
-  title: { type: String, required: true },
-  price: { type: Number, required: true },
+  geometry: {
+    type: {
+      type: String,
+      enum: ['Point'],
+    },
+    coordinates: {
+      type: [Number],
+    },
+  },
+
   images: [
     {
       url: String,
       filename: String,
     },
   ],
-  description: { type: String, required: true },
-
   reviews: [
     {
       type: mongoose.Schema.Types.ObjectId,
