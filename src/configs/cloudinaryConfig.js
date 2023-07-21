@@ -12,8 +12,9 @@ const cloudinaryStorage = new CloudinaryStorage({
   params: {
     folder: 'CampExplorer',
     allowedFormats: ['jpeg', 'jpg', 'png'],
-    transformation: [{ width: 500, height: 500, crop: 'limit' }],
+    transformation: [{ width: 500, height: 300, fit: 'scale' }],
+    maxFileSize: 6000000,
   },
 });
 
-export default cloudinaryStorage;
+export { cloudinary, cloudinaryStorage };
