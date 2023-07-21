@@ -3,18 +3,26 @@ import joi from 'joi';
 const joiCampgroundMiddleware = joi.object({
   campground: joi
     .object({
-      location: joi.string().required(),
       title: joi.string().required(),
+      location: joi.string().required(),
+      price: joi.number().required().min(0),
+      description: joi.string().required(),
+
+      author: joi.string(),
+      geometry: joi.object({
+        type: joi.string(),
+        coordinates: joi.array().items(joi.number()),
+      }),
+
       images: joi.array().items(
         joi.object({
           url: joi.string().required(),
           filename: joi.string().required(),
         })
       ),
-      description: joi.string().required(),
-      price: joi.number().required().min(0),
     })
     .required(),
+
   deleteImages: joi.array(),
 });
 
@@ -23,6 +31,8 @@ const joiReviewMiddleware = joi.object({
     .object({
       body: joi.string().required(),
       rating: joi.number().required().min(1).max(5),
+
+      author: joi.string(),
     })
     .required(),
 });
