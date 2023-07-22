@@ -1,13 +1,7 @@
 import express from 'express';
 import wrapAsync from '../utils/wrapAsync.js';
 import { validateUser } from '../utils/validations.js';
-import {
-  getRegisterationPage,
-  getLoginPage,
-  getLogoutUser,
-  registerUser,
-  loginUser,
-} from '../controllers/userController.js';
+import { getRegisterationPage, getLoginPage, getLogoutUser, registerUser, loginUser } from '../controllers/userController.js';
 
 const router = express.Router();
 
