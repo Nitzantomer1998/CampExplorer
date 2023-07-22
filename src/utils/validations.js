@@ -1,9 +1,5 @@
 import ExpressError from '../utils/ExpressError.js';
-import {
-  joiCampgroundMiddleware,
-  joiReviewMiddleware,
-  joiUserMiddleware,
-} from '../middlewares/joiMiddleware.js';
+import { joiCampgroundMiddleware, joiReviewMiddleware, joiUserMiddleware } from '../middlewares/joiMiddleware.js';
 
 const validateCampground = (req, res, next) => {
   const { error } = joiCampgroundMiddleware.validate(req.body);
@@ -11,9 +7,9 @@ const validateCampground = (req, res, next) => {
   if (error) {
     const msg = error.details.map((el) => el.message).join(',');
     throw new ExpressError(msg, 400);
-  } else {
-    next();
   }
+  
+  next();
 };
 
 const validateReview = (req, res, next) => {
@@ -22,9 +18,9 @@ const validateReview = (req, res, next) => {
   if (error) {
     const msg = error.details.map((el) => el.message).join(',');
     throw new ExpressError(msg, 400);
-  } else {
-    next();
   }
+  
+  next();
 };
 
 const validateUser = (req, res, next) => {
@@ -33,9 +29,9 @@ const validateUser = (req, res, next) => {
   if (error) {
     const msg = error.details.map((el) => el.message).join(',');
     throw new ExpressError(msg, 400);
-  } else {
-    next();
   }
+  
+  next();
 };
 
 export { validateCampground, validateReview, validateUser };
