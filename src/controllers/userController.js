@@ -1,20 +1,14 @@
 import bcrypt from 'bcrypt';
 import User from '../models/userModel.js';
 
-const getRegisterationPage = async (req, res) => {
-  res.render('users/register');
-};
+const getRegisterationPage = async (req, res) => { res.render('users/register') };
 
-const getLoginPage = async (req, res) => {
-  res.render('users/login');
-};
+const getLoginPage = async (req, res) => { res.render('users/login') };
 
 const getLogoutUser = async (req, res) => {
   req.session.user_id = null;
-
   req.flash('msg', { type: 'success', message: 'Goodbye!' });
-
-  res.redirect('/login');
+  res.redirect('/');
 };
 
 const registerUser = async (req, res) => {
@@ -35,9 +29,7 @@ const registerUser = async (req, res) => {
   });
 
   req.session.user_id = newUser._id;
-
   req.flash('msg', { type: 'success', message: 'Welcome to CampExplorer!' });
-
   res.redirect('/campgrounds');
 };
 
@@ -55,9 +47,7 @@ const loginUser = async (req, res) => {
   }
 
   req.session.user_id = user._id;
-
   req.flash('msg', { type: 'success', message: 'Welcome back!' });
-
   res.redirect('/campgrounds');
 };
 
