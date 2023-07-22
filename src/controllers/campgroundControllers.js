@@ -6,7 +6,7 @@ import { cloudinary } from '../configs/cloudinaryConfig.js';
 const geoCoder = mbxGeocoding({ accessToken: process.env.MAPBOX_TOKEN });
 
 const getAllCampgroundsPage = async (req, res) => {
-  const campgrounds = await Campground.find({}).populate('popupText'); //FIX
+  const campgrounds = await Campground.find({});
   res.render('campgrounds/index', { campgrounds });
 };
 
