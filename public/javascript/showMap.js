@@ -13,7 +13,10 @@ new mapboxgl.Marker()
   .setPopup(
     new mapboxgl.Popup({ offset: 25 })
     .setHTML(
-      `<h3>${campground.title}</h3><p>${campground.location}</p>`
+      "<p><strong><a href='/campgrounds/" + campground._id + "'>" + campground.title + "</a></strong><p>" + 
+            "<p>" + campground.location + "</p>" +
+            "<p>" + campground.description.substring(0, 20) + "...</p>" +
+            "<img src='" + campground.images[0].url + "' width='175px' height='100' />" 
     )
   )
   .addTo(map);
