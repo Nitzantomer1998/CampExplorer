@@ -3,6 +3,8 @@ class ExpressError extends Error {
     super();
     this.message = message;
     this.statusCode = statusCode;
+
+    redirect('/error', { statusCode, message })
   }
 }
 
