@@ -17,11 +17,14 @@ app.engine('ejs', ejsMate);
 app.set('view engine', 'ejs');
 app.set('views', 'src/views');
 
-app.use(flash());
 app.use(express.static('public'));
 app.use(methodOverride('_method'));
 app.use(express.urlencoded({ extended: true }));
-app.use((error, req, res, next) => { res.render('error', { error }) });
+app.use((error, req, res, next) => { 
+  const { statusCode = 500 } = error;
+  if (!error.message) error.message = 'Something Went Wrong';
+  res.status(statusCode).render('error', { error })
+});
 app.use(
   session({
     secret: process.env.SECRET_KEY,
@@ -33,6 +36,7 @@ app.use(
     },
   })
 );
+app.use(flash());
 app.use((req, res, next) => {
   res.locals.currentUser = req.session.user_id;
   res.locals.msg = req.flash('msg')[0];
