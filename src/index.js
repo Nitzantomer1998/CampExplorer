@@ -1,4 +1,5 @@
 import fs from 'fs';
+import path from 'path';
 import dotenv from 'dotenv';
 import express from 'express';
 import ejsMate from 'ejs-mate';
@@ -14,7 +15,7 @@ dotenv.config();
 await mongodbConfig();
 
 const app = express();
-
+const __dirname = path.resolve();
 const store = MongoStore.create({
   mongoUrl: process.env.MONGODB_URL,
   secret: process.env.SECRET_KEY,
@@ -23,9 +24,9 @@ const store = MongoStore.create({
 
 app.engine('ejs', ejsMate);
 app.set('view engine', 'ejs');
-app.set('views', 'src/views');
+app.set('views', path.join(__dirname + '/src/views'));
 
-app.use(express.static('src/public'));
+app.use(express.static(path.join(__dirname, '/src/public')));
 app.use(methodOverride('_method'));
 app.use(express.urlencoded({ extended: true }));
 app.use(mongoSanitize({ replaceWith: '_' }));
