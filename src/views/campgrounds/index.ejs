@@ -7,7 +7,7 @@
   <div class="card mb-3">
     <div class="row">
       <div class="col-md-4">
-        <img class="img-fluid" src="<%= campground.images[0].url %>"/>
+        <img class="img-fluid" src="<%= campground.images[0].url %>" />
       </div>
 
       <div class="col-md-8">
@@ -17,9 +17,7 @@
             <small class="text-muted"><%= campground.location %></small>
           </p>
           <p class="card-text"><%= campground.description.substring(0, 350) %>...</p>
-          <a class="btn btn-primary" href="/campgrounds/<%= campground._id %>"
-            >View <%= campground.title %></a
-          >
+          <a class="btn btn-primary" href="/campgrounds/<%= campground._id %>">View <%= campground.title %></a>
         </div>
       </div>
     </div>
@@ -47,10 +45,10 @@
       images: campground.images,
       reviews: campground.reviews,
       properties: {
-        popUpMarkup: "<p><strong><a href='/campgrounds/" + campground._id + "'>" + campground.title + "</a></strong><p>" + 
+        popUpMarkup: "<p><strong><a href='/campgrounds/" + campground._id + "'>" + campground.title + "</a></strong><p>" +
             "<p>" + campground.location + "</p>" +
             "<p>" + campground.description.substring(0, 20) + "...</p>" +
-            "<img src='" + campground.images[0].url + "' width='175px' height='100' />" 
+            "<img src='" + campground.images[0].url + "' width='175px' height='100' />"
       },
     };
 
