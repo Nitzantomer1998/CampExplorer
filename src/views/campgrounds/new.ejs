@@ -3,33 +3,15 @@
 <div class="row">
   <h1 class="text-center">New Campground</h1>
   <div class="col-md-6 offset-md-3">
-    <form
-      action="/campgrounds"
-      method="POST"
-      novalidate
-      class="validated-form"
-      enctype="multipart/form-data"
-    >
+    <form action="/campgrounds" method="POST" novalidate class="validated-form" enctype="multipart/form-data">
       <div class="mb-3">
         <label class="form-label" for="title">Title</label>
-        <input
-          class="form-control"
-          type="text"
-          name="campground[title]"
-          id="title"
-          required
-        />
+        <input class="form-control" type="text" name="campground[title]" id="title" required />
       </div>
 
       <div class="mb-3">
         <label class="form-label" for="location">Location</label>
-        <input
-          class="form-control"
-          type="text"
-          name="campground[location]"
-          id="location"
-          required
-        />
+        <input class="form-control" type="text" name="campground[location]" id="location" required />
       </div>
 
       <div class="mb-3">
@@ -39,14 +21,7 @@
             <span class="form-file-text custom-file-label">Choose images</span>
             <span class="form-file-button">Browse</span>
           </label>
-          <input
-            type="file"
-            class="form-file-input"
-            id="images"
-            name="images"
-            multiple
-            required
-          />
+          <input type="file" class="form-file-input" id="images" name="images" multiple required />
         </div>
       </div>
 
@@ -70,13 +45,7 @@
 
       <div class="mb-3">
         <label class="form-label" for="description">Description</label>
-        <textarea
-          class="form-control"
-          type="textarea"
-          name="campground[description]"
-          id="description"
-          required
-        ></textarea>
+        <textarea class="form-control" type="textarea" name="campground[description]" id="description" required></textarea>
       </div>
 
       <div class="mb-3">
