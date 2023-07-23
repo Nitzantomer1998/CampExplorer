@@ -8,7 +8,7 @@ const validateCampground = (req, res, next) => {
     const msg = error.details.map((el) => el.message).join(',');
     throw new ExpressError(msg, 400);
   }
-  
+
   next();
 };
 
@@ -19,7 +19,7 @@ const validateReview = (req, res, next) => {
     const msg = error.details.map((el) => el.message).join(',');
     throw new ExpressError(msg, 400);
   }
-  
+
   next();
 };
 
@@ -30,7 +30,7 @@ const validateUser = (req, res, next) => {
     const msg = error.details.map((el) => el.message).join(',');
     throw new ExpressError(msg, 400);
   }
-  
+
   next();
 };
 
