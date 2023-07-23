@@ -1,3 +1,4 @@
 # Ignore everything in this directory
+package-lock.json
 node_modules
 .env
