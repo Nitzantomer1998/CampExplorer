@@ -4,7 +4,7 @@ const map = new mapboxgl.Map({
   container: 'cluster-map',
   style: 'mapbox://styles/mapbox/light-v10',
   center: [34.8516, 31.0461],
-  zoom: 3,
+  zoom: 4,
 });
 
 map.addControl(new mapboxgl.NavigationControl());
@@ -24,7 +24,7 @@ map.on('load', () => {
     source: 'campgrounds',
     filter: ['has', 'point_count'],
     paint: {
-      'circle-color': ['step', ['get', 'point_count'], '#00BCD4', 10, '#2196F3', 30, '#3F51B5' ],
+      'circle-color': ['step', ['get', 'point_count'], '#00BCD4', 10, '#2196F3', 30, '#3F51B5'],
       'circle-radius': ['step', ['get', 'point_count'], 15, 10, 20, 25, 30],
     },
   });
@@ -54,21 +54,21 @@ map.on('load', () => {
     },
   });
 
-  map.on('click', 'clusters', (e) => {
-    const features = map.queryRenderedFeatures(e.point, {
-      layers: ['clusters'],
-    });
-    const clusterId = features[0].properties.cluster_id;
-    map
-      .getSource('campgrounds')
-      .getClusterExpansionZoom(clusterId, (err, zoom) => {
-        if (err) return;
+  map.on('click', 'clusters', (event) => {
+    const features = map.queryRenderedFeatures(event.point, { layers: ['clusters'] });
 
-        map.easeTo({
-          center: features[0].geometry.coordinates,
-          zoom: zoom,
-        });
+    const clusterId = features[0].properties.cluster_id;
+
+    map.getSource('campgrounds').getClusterExpansionZoom(clusterId, (error, zoom) => {
+      if (error) {
+        return;
+      }
+
+      map.easeTo({
+        center: features[0].geometry.coordinates,
+        zoom: zoom,
       });
+    });
   });
 
   map.on('click', 'unclustered-point', (event) => {
@@ -79,13 +79,14 @@ map.on('load', () => {
       coordinates[0] += event.lngLat.lng > coordinates[0] ? 360 : -360;
     }
 
-    new mapboxgl
-      .Popup()
-      .setLngLat(coordinates)
-      .setHTML(popUpMarkup)
-      .addTo(map);
+    new mapboxgl.Popup().setLngLat(coordinates).setHTML(popUpMarkup).addTo(map);
   });
 
-  map.on('mouseenter', 'clusters', () => { map.getCanvas().style.cursor = 'pointer' });
-  map.on('mouseleave', 'clusters', () => { map.getCanvas().style.cursor = '' });
+  map.on('mouseenter', 'clusters', () => {
+    map.getCanvas().style.cursor = 'pointer';
+  });
+  
+  map.on('mouseleave', 'clusters', () => {
+    map.getCanvas().style.cursor = '';
+  });
 });
