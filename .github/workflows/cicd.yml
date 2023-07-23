@@ -1,0 +1,23 @@
+name: CampExplorer CI/CD
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  cicd-job:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Run Linter
+        run: npm run linter
+
+      - name: Deploy Service
+        run: curl "https://api.render.com/deploy/srv-ciud16tiuiedpv7oo120?key=EVin564KbR4"
