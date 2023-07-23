@@ -6,7 +6,7 @@ const CampgroundSchema = new mongoose.Schema({
   price: { type: Number, required: true },
   description: { type: String, required: true },
   author: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-  geometry: { type: { type: String, enum: ['Point'] }, coordinates: { type: [Number] }},
+  geometry: { type: { type: String, enum: ['Point'] }, coordinates: { type: [Number] } },
   images: [{ url: String, filename: String }],
   reviews: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Review' }],
 });
