@@ -6,6 +6,7 @@ import flash from 'connect-flash';
 import session from 'express-session';
 import methodOverride from 'method-override';
 import ExpressError from './utils/ExpressError.js';
+import mongoSanitize from 'express-mongo-sanitize';
 import mongodbConfig from './configs/mongodbConfig.js';
 
 dotenv.config();
@@ -20,13 +21,10 @@ app.set('views', 'src/views');
 app.use(express.static('public'));
 app.use(methodOverride('_method'));
 app.use(express.urlencoded({ extended: true }));
-app.use((error, req, res, next) => { 
-  const { statusCode = 500 } = error;
-  if (!error.message) error.message = 'Something Went Wrong';
-  res.status(statusCode).render('error', { error })
-});
+app.use(mongoSanitize({ replaceWith: '_' }));
 app.use(
   session({
+    name: 'session',
     secret: process.env.SECRET_KEY,
     resave: false,
     saveUninitialized: true,
@@ -49,6 +47,16 @@ for (const route of routeFiles) {
   app.use('/', routeModule.default);
 }
 
-app.all('*', (req, res, next) => { next(new ExpressError('Page Not Found', 404)) });
+app.all('*', (req, res, next) => {
+  next(new ExpressError('Page Not Found', 404));
+});
+
+app.use((error, req, res) => {
+  const { statusCode = 500 } = error;
+
+  if (!error.message) error.message = 'Something Went Wrong';
+
+  res.status(statusCode).render('error', { error });
+});
 
 app.listen(process.env.PORT, () => console.log('Server Connected'));
