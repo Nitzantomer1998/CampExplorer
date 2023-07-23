@@ -1,5 +1,5 @@
 {
-  "name": "campexplorer",
+  "name": "camp-explorer",
   "version": "1.0.0",
   "description": "Discover nature's hidden gems for your next unforgettable camping adventure",
   "main": "src/index.js",
