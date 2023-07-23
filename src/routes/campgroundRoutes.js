@@ -3,7 +3,7 @@ import express from 'express';
 import wrapAsync from '../utils/wrapAsync.js';
 import { validateCampground } from '../utils/validations.js';
 import { cloudinaryStorage } from '../configs/cloudinaryConfig.js';
-import { isLoggedIn, isCampgroundAuthor } from '../middlewares/AuthorizationMiddleware.js';
+import { isLoggedIn, isCampgroundAuthor } from '../middlewares/authorizationMiddleware.js';
 import {
   getAllCampgroundsPage,
   getNewCampgroundPage,

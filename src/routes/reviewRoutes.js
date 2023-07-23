@@ -2,7 +2,7 @@ import express from 'express';
 import wrapAsync from '../utils/wrapAsync.js';
 import { validateReview } from '../utils/validations.js';
 import { postReview, deleteReview } from '../controllers/reviewController.js';
-import { isLoggedIn, isReviewAuthor } from '../middlewares/AuthorizationMiddleware.js';
+import { isLoggedIn, isReviewAuthor } from '../middlewares/authorizationMiddleware.js';
 
 const router = express.Router();
 
