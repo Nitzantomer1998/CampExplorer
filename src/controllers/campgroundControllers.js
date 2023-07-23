@@ -10,7 +10,9 @@ const getAllCampgroundsPage = async (req, res) => {
   res.render('campgrounds/index', { campgrounds });
 };
 
-const getNewCampgroundPage = async (req, res) => { res.render('campgrounds/new') };
+const getNewCampgroundPage = async (req, res) => {
+  res.render('campgrounds/new');
+};
 
 const getCampgroundPage = async (req, res) => {
   const campground = await Campground.findById(req.params.id)
@@ -37,15 +39,13 @@ const getEditCampgroundPage = async (req, res) => {
 };
 
 const postCampground = async (req, res) => {
-  const geoData = await geoCoder
-    .forwardGeocode({ query: req.body.campground.location, limit: 1 })
-    .send();
+  const geoData = await geoCoder.forwardGeocode({ query: req.body.campground.location, limit: 1 }).send();
 
   const campground = await new Campground({
     ...req.body.campground,
     author: req.session.user_id,
     geometry: geoData.body.features[0].geometry,
-    images: req.files.map((file) => ({ url: file.path, filename: file.filename }))
+    images: req.files.map((file) => ({ url: file.path, filename: file.filename })),
   }).save();
 
   req.flash('msg', { type: 'success', message: 'Successfully made a new campground!' });
@@ -78,7 +78,7 @@ const postUpdatedCampground = async (req, res) => {
       await cloudinary.uploader.destroy(filename);
     }
 
-    await campground.updateOne({ $pull: { images: { filename: { $in: req.body.deleteImages }}}});
+    await campground.updateOne({ $pull: { images: { filename: { $in: req.body.deleteImages } } } });
   }
 
   req.flash('msg', { type: 'success', message: 'Successfully updated a campground!' });
@@ -88,7 +88,7 @@ const postUpdatedCampground = async (req, res) => {
 const deleteCampground = async (req, res) => {
   const campground = await Campground.findById(req.params.id);
 
-  await Review.deleteMany({ _id: { $in: campground.reviews }});
+  await Review.deleteMany({ _id: { $in: campground.reviews } });
 
   for (let image of campground.images) {
     await cloudinary.uploader.destroy(image.filename);
@@ -100,12 +100,4 @@ const deleteCampground = async (req, res) => {
   res.redirect('/campgrounds');
 };
 
-export {
-  getAllCampgroundsPage,
-  getNewCampgroundPage,
-  getCampgroundPage,
-  getEditCampgroundPage,
-  postCampground,
-  postUpdatedCampground,
-  deleteCampground,
-};
+export { getAllCampgroundsPage, getNewCampgroundPage, getCampgroundPage, getEditCampgroundPage, postCampground, postUpdatedCampground, deleteCampground };
