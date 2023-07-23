@@ -1,42 +1,57 @@
-import joi from 'joi';
+import baseJoi from 'joi';
+import sanitizeHtml from 'sanitize-html';
 
-const joiCampgroundMiddleware = joi.object({
-  campground: joi
-    .object({
-      title: joi.string().required(),
-      location: joi.string().required(),
-      price: joi.number().required().min(0),
-      description: joi.string().required(),
-      author: joi.string(),
-      geometry: joi.object({ 
-        type: joi.string(), 
-        coordinates: joi.array().items(joi.number() )
-      }),
-      images: joi.array().items(joi.object({ url: joi.string().required(), filename: joi.string().required() })),
-    })
-    .required(),
-
-  deleteImages: joi.array(),
+const extension = (joi) => ({
+  type: 'string',
+  base: joi.string(),
+  messages: { 'string.escapeHTML': '{{#label}} must not include HTML!' },
+  rules: {
+    escapeHTML: {
+      validate(value, helpers) {
+        const clean = sanitizeHtml(value, {
+          allowedTags: [],
+          allowedAttributes: {},
+        });
+        if (clean !== value) return helpers.error('string.escapeHTML', { value });
+        return clean;
+      },
+    },
+  },
 });
 
-const joiReviewMiddleware = joi.object({
-  review: joi
-    .object({
-      body: joi.string().required(),
-      rating: joi.number().required().min(1).max(5),
-      author: joi.string(),
-    })
-    .required(),
+const Joi = baseJoi.extend(extension);
+
+const joiCampgroundMiddleware = Joi.object({
+  campground: Joi.object({
+    title: Joi.string().required().escapeHTML(),
+    location: Joi.string().required().escapeHTML(),
+    price: Joi.number().required().min(0),
+    description: Joi.string().required().escapeHTML(),
+    author: Joi.string().escapeHTML(),
+    geometry: Joi.object({
+      type: Joi.string().escapeHTML(),
+      coordinates: Joi.array().items(Joi.number()),
+    }),
+    images: Joi.array().items(Joi.object({ url: Joi.string().required().escapeHTML(), filename: Joi.string().required().escapeHTML() })),
+  }).required(),
+
+  deleteImages: Joi.array(),
 });
 
-const joiUserMiddleware = joi.object({
-  user: joi
-    .object({
-      username: joi.string().required(),
-      email: joi.string().required(),
-      password: joi.string().required(),
-    })
-    .required(),
+const joiReviewMiddleware = Joi.object({
+  review: Joi.object({
+    body: Joi.string().required().escapeHTML(),
+    rating: Joi.number().required().min(1).max(5),
+    author: Joi.string().escapeHTML(),
+  }).required(),
+});
+
+const joiUserMiddleware = Joi.object({
+  user: Joi.object({
+    username: Joi.string().required().escapeHTML(),
+    email: Joi.string().required().escapeHTML(),
+    password: Joi.string().required(),
+  }).required(),
 });
 
 export { joiCampgroundMiddleware, joiReviewMiddleware, joiUserMiddleware };
