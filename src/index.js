@@ -4,6 +4,7 @@ import express from 'express';
 import ejsMate from 'ejs-mate';
 import flash from 'connect-flash';
 import session from 'express-session';
+import MongoStore from 'connect-mongo';
 import methodOverride from 'method-override';
 import ExpressError from './utils/ExpressError.js';
 import mongoSanitize from 'express-mongo-sanitize';
@@ -13,6 +14,12 @@ dotenv.config();
 await mongodbConfig();
 
 const app = express();
+
+const store = MongoStore.create({
+  mongoUrl: process.env.MONGODB_URL,
+  secret: process.env.SECRET_KEY,
+  touchAfter: parseInt(process.env.TOUCH_AFTER),
+});
 
 app.engine('ejs', ejsMate);
 app.set('view engine', 'ejs');
@@ -24,6 +31,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(mongoSanitize({ replaceWith: '_' }));
 app.use(
   session({
+    store,
     name: 'session',
     secret: process.env.SECRET_KEY,
     resave: false,
