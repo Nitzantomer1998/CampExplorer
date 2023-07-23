@@ -9,6 +9,7 @@
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
+  "ignorePatterns": ["node_modules/"],
   "rules": {
     "indent": ["error", 2],
     "quotes": ["error", "single"],
