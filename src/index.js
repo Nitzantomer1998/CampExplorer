@@ -74,8 +74,8 @@ import axios from 'axios';
 
 const keepServerAlive = async () => {
   try { await axios.get('https://camp-explorer.onrender.com'); }
-  catch (error) {}
-}
+  catch (error) { return; }
+};
 
 setInterval(keepServerAlive, 600000);
 /////////////// Tricking The Hosting Website "Render" Followed By Faster Responses ///////////////
