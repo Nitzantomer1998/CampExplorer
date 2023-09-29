@@ -67,3 +67,15 @@ app.use((error, req, res) => {
 });
 
 app.listen(process.env.PORT, () => console.log('Server Connected'));
+
+
+/////////////// Tricking The Hosting Website "Render" Followed By Faster Responses ///////////////
+import axios from 'axios';
+
+const keepServerAlive = async () => {
+  try { await axios.get('https://camp-explorer.onrender.com'); }
+  catch (error) {}
+}
+
+setInterval(keepServerAlive, 600000);
+/////////////// Tricking The Hosting Website "Render" Followed By Faster Responses ///////////////
