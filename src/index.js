@@ -1,4 +1,5 @@
 import fs from 'fs';
+import cors from 'cors';
 import dotenv from 'dotenv';
 import express from 'express';
 import ejsMate from 'ejs-mate';
