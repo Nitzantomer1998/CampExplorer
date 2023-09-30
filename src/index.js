@@ -24,10 +24,12 @@ app.engine('ejs', ejsMate);
 app.set('view engine', 'ejs');
 app.set('views', 'src/views');
 
+
 app.use(express.static('src/public'));
 app.use(methodOverride('_method'));
 app.use(express.urlencoded({ extended: true }));
 app.use(mongoSanitize({ replaceWith: '_' }));
+app.use(cors({ origin: process.env.BASE_URL, credentials: true }));
 app.use(
   session({
     store,
