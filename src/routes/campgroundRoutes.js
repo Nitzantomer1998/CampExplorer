@@ -17,9 +17,9 @@ import {
 const uploadImages = multer({ storage: cloudinaryStorage }).array('images', 5);
 const router = express.Router();
 
-router.get('/campgrounds', isLoggedIn, wrapAsync(getAllCampgroundsPage));
+router.get('/campgrounds', wrapAsync(getAllCampgroundsPage));
 router.get('/campgrounds/new', isLoggedIn, wrapAsync(getNewCampgroundPage));
-router.get('/campgrounds/:id', isLoggedIn, wrapAsync(getCampgroundPage));
+router.get('/campgrounds/:id', wrapAsync(getCampgroundPage));
 router.get('/campgrounds/:id/edit', isLoggedIn, isCampgroundAuthor, wrapAsync(getEditCampgroundPage));
 
 router.post('/campgrounds', isLoggedIn, uploadImages, validateCampground, wrapAsync(postCampground));
