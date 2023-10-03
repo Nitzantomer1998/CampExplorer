@@ -92,3 +92,103 @@
    <li>Open a pull request and provide a clear and detailed explanation of your changes and the reasoning behind them.</li>
    <li>Be prepared to answer questions and address any issues or feedback on your pull request.</li>
 </ul>
+
+<h2>CampExplorer Preview</h2>
+<div>
+  <div>
+    <h3>Home Page</h3>
+    <p>
+      Serve as the landing page,<br />
+      Present you the diverse avenues available for exploration on the
+      platform.
+    </p>
+      <img src="https://github.com/Nitzantomer1998/ProjectRepresentation/blob/main/CampExplorer/HomePage.jpg" alt=" " />
+  </div>
+   
+  <br />
+   
+  <div>
+    <h3>Campgrounds Page</h3>
+    <p>
+      Serve as the main page,<br />
+      Present you all the campgrounds.<br />
+      First part of the page unveils a map showcasing the precise locations of all registered campgrounds, providing a visual overview of your potential destinations. <br />
+      While the second part is an orderly blog list, offering detailed insights into each registered campground.
+    </p>
+    <img src="https://github.com/Nitzantomer1998/ProjectRepresentation/blob/main/CampExplorer/CampgroundsPage.jpg" alt="Campgrounds Page" />
+  </div>
+   
+  <br />
+   
+  <div>
+    <h3>View Campground on a Map</h3>
+    <p>
+      Navigate through the platform interactive map adorned with distinctive blue dots, each representing a unique campground location.<br />
+      Engage effortlessly by selecting a dot to reveal a concise, mini-version display showcasing key details about the corresponding campground.
+    </p>
+    <img src="https://github.com/Nitzantomer1998/ProjectRepresentation/blob/main/CampExplorer/ViewCampgroundOnMap.jpg" alt="View Campground on a Map" />
+  </div>
+   
+  <br />
+  
+  <div>
+    <h3>View Campgrounds as a Card</h3>
+    <p>
+      Scroll down through the platform interactive blog list, where every card represents a distinctive campground.<br />
+      Each card unfolds an enticing visual with an image capturing the essence, a captivating title, and the location.
+    </p>
+    <img src="https://github.com/Nitzantomer1998/ProjectRepresentation/blob/main/CampExplorer/ViewCampgroundAsCard.jpg" alt="View Campground as a Card" />
+  </div>
+   
+  <br />
+
+  <div>
+    <h3>Campground Page</h3>
+    <p>
+      Represented with a specific campground with all its details Name, Location, Price, Description and more.<br />
+      The central map visually pinpoints the campground, surrounded by a review list for added insights. 
+    </p>
+    <img src="https://github.com/Nitzantomer1998/ProjectRepresentation/blob/main/CampExplorer/CampgroundPage.jpg" alt="Campground Page" />
+  </div>
+   
+  <br />
+  
+  <div>
+    <h3>Add Campground Page</h3>
+    <p>
+      Page allowing the user to add a campground.
+    </p>
+    <img src="https://github.com/Nitzantomer1998/ProjectRepresentation/blob/main/CampExplorer/AddCampgroundPage.jpg" alt="Add Campground Page" />
+  </div>
+   
+  <br />
+
+  <div>
+    <h3>Edit Campground Page</h3>
+    <p>
+      Page allowing the creator of the campground to edit it with the updated details.
+    </p>
+    <img src="https://github.com/Nitzantomer1998/ProjectRepresentation/blob/main/CampExplorer/EditCampgroundPage.jpg" alt="Edit Campground Page" />
+  </div>
+   
+  <br />
+   
+  <div>
+    <h3>Login Page</h3>
+    <p>
+      Page allowing the user to connect into his account.
+    </p>
+    <img src="https://github.com/Nitzantomer1998/ProjectRepresentation/blob/main/CampExplorer/LoginPage.jpg" alt="Login Page" />
+  </div>
+
+  <br />
+   
+  <div>
+    <h3>Registration Page</h3>
+    <p>
+      Page allowing the user to register.
+    </p>
+    <img src="https://github.com/Nitzantomer1998/ProjectRepresentation/blob/main/CampExplorer/RegistrationPage.jpg" alt="Registration Page" />
+  </div>
+</div>
+
