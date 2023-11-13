@@ -15,7 +15,6 @@
    <li>Node.js</li>
    <li>MongoDB</li>
    <li>Cloudinary</li>
-   <li>Render</li>
 </ul>
 
 <h2>Getting Started</h2>
